@@ -17,11 +17,19 @@ namespace ComicBookGalleryModel
             {
                 context.Database.Log = (message) => Debug.WriteLine(message);
 
-                //var comicBooks = context.ComicBooks.ToList();
+                var comicBooks = context.ComicBooks
+                    .Include(cb => cb.Series)
+                    .Where(cb => cb.IssueNumber==1)
+                    .ToList();
+                foreach (var comicBook in comicBooks)
+                {
+                    Console.WriteLine(comicBook.Displaytext);
+                }
 
-                var comicBooksQuery = from cb in context.ComicBooks select cb;
-                var comicBooks = comicBooksQuery.ToList();
+                //var comicBooksQuery = from cb in context.ComicBooks select cb;
+                //var comicBooks = comicBooksQuery.ToList();
 
+                Console.WriteLine();
                 Console.WriteLine("# of comic books: {0}", comicBooks.Count);
                 //var comicBooks = context.ComicBooks
                 //    .Include(cb => cb.Series)
