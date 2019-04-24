@@ -17,10 +17,23 @@ namespace ComicBookGalleryModel
             {
                 context.Database.Log = (message) => Debug.WriteLine(message);
 
-                var comicBooks = context.ComicBooks
+                //var comicBooks = context.ComicBooks
+                //    .Include(cb => cb.Series)
+                //    .OrderByDescending(cb => cb.IssueNumber)
+                //    .ThenBy(cb => cb.PublishedOn)
+                //    .ToList();
+
+
+                var comicbooksQuery = context.ComicBooks
                     .Include(cb => cb.Series)
-                    .Where(cb => cb.IssueNumber==1)
+                    .OrderByDescending(cb => cb.IssueNumber);
+
+                var comicBooks = comicbooksQuery.ToList();
+
+                var comicbooksQuery2 = comicbooksQuery
+                    .Where(cb => cb.AverageRating < 7)
                     .ToList();
+
                 foreach (var comicBook in comicBooks)
                 {
                     Console.WriteLine(comicBook.Displaytext);
@@ -31,6 +44,16 @@ namespace ComicBookGalleryModel
 
                 Console.WriteLine();
                 Console.WriteLine("# of comic books: {0}", comicBooks.Count);
+                Console.WriteLine("--------------------------------------");
+                foreach (var comicBook in comicbooksQuery2)
+                {
+                    Console.WriteLine(comicBook.Displaytext);
+                }
+
+                Console.WriteLine();
+                Console.WriteLine("# of comic books: {0}", comicbooksQuery2.Count);
+
+
                 //var comicBooks = context.ComicBooks
                 //    .Include(cb => cb.Series)
                 //    .Include(cb => cb.Artists.Select(a => a.Artist))
