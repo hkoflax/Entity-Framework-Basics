@@ -53,30 +53,45 @@ namespace ComicBookGalleryModel
                 //Console.WriteLine();
                 //Console.WriteLine("# of comic books: {0}", comicbooksQuery2.Count);
 
+                var comicbookId = 1;
 
-                var comicBooks = context.ComicBooks
-                    //.Include(cb => cb.Series)
-                    //.Include(cb => cb.Artists.Select(a => a.Artist))
-                    //.Include(cb => cb.Artists.Select(a => a.Role))
-                    .ToList();
+                //var comicBook1 = context.ComicBooks.Find(comicbookId);
+                //var comicBook2 = context.ComicBooks.Find(comicbookId);
 
-                foreach (var comicBook in comicBooks)
-                {
-                    if (comicBook.Series==null)
-                    {
-                        context.Entry(comicBook).Reference(cb => cb.Series)
-                            .Load();
-                    }
+                var comicBook1 = context.ComicBooks
+                                 .SingleOrDefault(cb => cb.Id == comicbookId);
 
-                    var artistRoleNames = comicBook.Artists
-                        .Select(a => $"{a.Artist.Name} - {a.Role.Name}").ToList();
+                comicBook1.Description = "New Value";
+                Debug.WriteLine("Changing the description property value");
 
-                    var artistRoleDisplaytext = string.Join(", ", artistRoleNames);
+                var comicBook2 = context.ComicBooks
+                                .SingleOrDefault(cb => cb.Id == comicbookId);
 
-                    Console.WriteLine(comicBook.Displaytext);
-                    Console.WriteLine(artistRoleDisplaytext);
-                }
+
+
+                //var comicBooks = context.ComicBooks
+                //    //.Include(cb => cb.Series)
+                //    //.Include(cb => cb.Artists.Select(a => a.Artist))
+                //    //.Include(cb => cb.Artists.Select(a => a.Role))
+                //    .ToList();
+
+                //foreach (var comicBook in comicBooks)
+                //{
+                //    if (comicBook.Series==null)
+                //    {
+                //        context.Entry(comicBook).Reference(cb => cb.Series)
+                //            .Load();
+                //    }
+
+                //    var artistRoleNames = comicBook.Artists
+                //        .Select(a => $"{a.Artist.Name} - {a.Role.Name}").ToList();
+
+                //    var artistRoleDisplaytext = string.Join(", ", artistRoleNames);
+
+                //    Console.WriteLine(comicBook.Displaytext);
+                //    Console.WriteLine(artistRoleDisplaytext);
             }
+
         }
     }
 }
