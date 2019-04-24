@@ -23,7 +23,7 @@ namespace ComicBookGalleryModel.Models
         public int IssueNumber { get; set; }
         public string Description { get; set; }
         public DateTime PublishedOn { get; set; }
-        public decimal? Averagerating { get; set; }
+        public decimal? AverageRating { get; set; }
 
         public Series Series { get; set; }
         public ICollection<ComicBookArtist> Artists { get; set; }
