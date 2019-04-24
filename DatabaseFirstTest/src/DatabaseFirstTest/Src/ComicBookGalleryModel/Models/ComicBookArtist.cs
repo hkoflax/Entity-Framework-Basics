@@ -13,8 +13,8 @@ namespace ComicBookGalleryModel.Models
         public int ArtistId { get; set; }
         public int RoleId { get; set; }
 
-        public ComicBook Comic { get; set; }
-        public Artist Artist { get; set; }
-        public Role Role { get; set; }
+        public virtual ComicBook Comic { get; set; }
+        public virtual Artist Artist { get; set; }
+        public virtual Role Role { get; set; }
     }
 }
